@@ -1,44 +1,12 @@
-At this time this is a simple real-time editor. This was built following the 3-part [tutorial](https://medium.com/@syedsaadh/real-time-code-sharing-application-using-react-and-firebase-part-1-4697483ae3ff) provided by [Saad Hassan](https://medium.com/@syedsaadh) on medium
+# MyMentor 
+*A platform that allows users to edit code together*
 
-To note there were a few changes needed to make to make the app operational:
+This app has been changed to utilize the Ace Editor([react-ace](https://www.npmjs.com/package/react-ace)) as opposed to [react-codemirror](https://www.npmjs.com/package/react-codemirror)
 
-- Grant all anonymous users read/write access to the realtime firebase db
+In addition, form selectors from the [Material-UI](https://material-ui.com/) library was utilized
 
-    1. Navigate to [Firbase console](https://console.firebase.google.com)
-    2. Click on the project
-    3. Navigate to Database > Realtime Database > Rules
-    4. Update rules as follows
-        
-        `"rules": {
-            ".read": true,
-            ".write": true
-        }`
-        
-- Remove the type aliases defined in the Header component. Header component goes from this
-    
-        import React from "react";
-        import { Link } from "react-router-dom";
-        type Props = {
-            style: React.CSSProperties,
-            extras: React.ReactHTML
-        };
-        const Header = (props: Props) => {
-        return (
-            <header style={props.style} className="App-header">
-            <Link className="App-title" to="/">Realtime Code Share</Link>
-            <div className="extras">{props.extras}</div>
-            </header>
-        )};
-        export default Header;
+## Roadblocks
+ - A major roadblock was figuring out how and where the editors various states would be updated. Success was achieved by having the state maintained on the [codeeditor](client/src/pages/codeeditor.js) page and the state then passed to the [Editor](client/src/components/Editor.js)
 
-    to this
-
-            import React from "react";
-            const Header = (props) => {
-            return (
-                <header style={props.style} className="App-header">
-                <Link className="App-title" to="/">Realtime Code Share</Link>
-                <div className="extras">{props.extras}</div>
-                </header>
-            )};            
-            export default Header;
+## Up Next
+ - Start fleshing out a backend to allow user access

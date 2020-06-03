@@ -1,5 +1,5 @@
 import React from "react";
-import Header from "../../components/Header";
+import Header from "../components/Header";
 import rand from "random-key";
 import { database } from "firebase";
 
@@ -10,21 +10,24 @@ export default class HomePage extends React.Component {
   };
   componentDidMount = () => {
     database()
-      .ref("code-sessions")
+      .ref("codesessions")
       .on("value", s => {
         this.setState({ num: s.numChildren() });
       });
   };
 
-  onNewGround = () => {
-    database()
-      .ref("code-sessions/" + this.state.key)
+
+  onHighGround = () => {
+      console.log("it's over anakin")
+      database()
+      .ref("codesessions/" + this.state.key)
       .set({
         content: "Happy Coding",
         createdon: Date()
       });
-    this.props.history.push("/" + this.state.key);
-  };
+    this.props.history.push("/codesessions/" + this.state.key);
+      // this.props.history.push("/codesession/");
+  }
   render() {
     return (
       <React.Fragment>
@@ -34,21 +37,23 @@ export default class HomePage extends React.Component {
         <div className="homepage">
           <p className="title">
             <br />
-            Share Code within <span className="highlight">Realtime</span>.
+            Share Code in <span className="highlight">Realtime</span>.
             <br />
-            Anywhere, Anytime and with <span className="highlight">Anyone</span>
+            Anywhere, Anytime, with <span className="highlight">Anyone</span>
             .
           </p>
 
           <p className="sub-title">
             Simple Realtime Code Sharing Editor App. Using Firebase Realtime
-            Database and Code Mirror as Editor.
+            Database and Ace editor as Editor.
           </p>
+          
           <div>
-            <button className="btn" onClick={this.onNewGround}>
-              Share Code
+            <button className="btn" onClick={this.onHighGround} >
+              Code Editor
             </button>
           </div>
+          
         </div>
       </React.Fragment>
     );
